@@ -69,8 +69,38 @@ public class EmailServiceImpl implements EmailService {
             helper.setTo("kfh1992@gmail.com");
             helper.setText("Hola");
             //Add attachments
-            FileSystemResource fort = new FileSystemResource(new File(System.getProperty("user.home") + "/Descargas/fort.jpg"));
+            FileSystemResource fort = new FileSystemResource(new File("C:\\Users\\Usuario\\fort.png.png"));
             helper.addAttachment(fort.getFilename(), fort);
+            emailSender.send(message);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            throw new RuntimeException(exception.getMessage());
+        }
+    }
+
+    @Override
+    @Async
+    public void sendHtmlEmail() {
+        try {
+            Context context = new Context();
+            /*context.setVariable("name", name);
+            context.setVariable("url", getVerificationUrl(host, token));*/
+            //context.setVariables(Map.of("name", name, "url", getVerificationUrl(host, token)));
+            String text = templateEngine.process(EMAIL_TEMPLATE, context);
+            MimeMessage message = getMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, UTF_8_ENCODING);
+            helper.setPriority(1);
+            helper.setSubject(NEW_USER_ACCOUNT_VERIFICATION);
+            helper.setFrom(fromEmail);
+            helper.setTo("kfh1992@gmail.com");
+            helper.setText(text, true);
+            //Add attachments (Optional)
+            /*FileSystemResource fort = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/images/fort.jpg"));
+            FileSystemResource dog = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/images/dog.jpg"));
+            FileSystemResource homework = new FileSystemResource(new File(System.getProperty("user.home") + "/Downloads/images/homework.docx"));
+            helper.addAttachment(fort.getFilename(), fort);
+            helper.addAttachment(dog.getFilename(), dog);
+            helper.addAttachment(homework.getFilename(), homework);*/
             emailSender.send(message);
         } catch (Exception exception) {
             System.out.println(exception.getMessage());

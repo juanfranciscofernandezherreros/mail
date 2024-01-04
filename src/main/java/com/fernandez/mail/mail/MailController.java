@@ -16,6 +16,7 @@ public class MailController {
     public void sendEmail(){
         //emailService.sendSimpleMailMessage();
         emailService.sendMimeMessageWithAttachments();
+        emailService.sendHtmlEmail();
     }
 
 }
