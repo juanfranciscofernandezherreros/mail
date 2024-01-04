@@ -1,0 +1,6 @@
+#Email Config
+SERVER_PORT: 8082
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: xxxx@gmail.com
+EMAIL_PASSWORD: eyyl amuq xxx vgdc
